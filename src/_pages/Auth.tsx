@@ -145,7 +145,7 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
             </div>
             
             <div className="space-y-3">
-              <h1 className="text-2xl font-bold text-gray-900">Welcome to Interview Coder</h1>
+              <h1 className="text-2xl font-bold text-gray-900">Welcome to kanapadadu</h1>
               <p className="text-gray-600 leading-relaxed">
                 Your AI-powered coding assistant for interview preparation and problem solving
               </p>
