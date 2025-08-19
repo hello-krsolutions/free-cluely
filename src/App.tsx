@@ -149,7 +149,7 @@ const App: React.FC = () => {
   }, [view]) // Re-run when view changes
 
   useEffect(() => {
-    if (!window.electronAPI) return
+    if (!window.electronAPI || !isAuthenticated) return
 
     const cleanupFunctions = [
       window.electronAPI.onSolutionStart(() => {
@@ -183,7 +183,7 @@ const App: React.FC = () => {
       })
     ]
     return () => cleanupFunctions.forEach((cleanup) => cleanup())
-  }, [])
+  }, [isAuthenticated, view])
 
   // Show loading screen while checking auth
   if (isCheckingAuth) {
