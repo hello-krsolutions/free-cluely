@@ -322,8 +322,7 @@ Contributors are recognized in several ways:
 
 Don't hesitate to ask questions! We're here to help:
 
-- Open a [Discussion](https://github.com/ibttf/interview-coder-frontend/discussions)
-- Join our [Discord](https://discord.gg/interview-coder)
-- Email us at [dev@interviewcoder.com](mailto:dev@interviewcoder.com)
+- Open a [Discussion](https://github.com/hello-krsolutions/free-cluely/discussions)
+- Email us at [hello@krmrsolutions.com](mailto:hello@krmrsolutions.com)
 
 Thank you for contributing to kanapadadu! 🚀
