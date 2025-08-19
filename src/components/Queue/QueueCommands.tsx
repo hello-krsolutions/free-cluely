@@ -51,8 +51,12 @@ const QueueCommands: React.FC<QueueCommandsProps> = ({
           reader.onloadend = async () => {
             const base64Data = (reader.result as string).split(',')[1]
             try {
-              const result = await window.electronAPI.analyzeAudioFromBase64(base64Data, blob.type)
-              setAudioResult(result.text)
+              if (window.electronAPI) {
+                const result = await window.electronAPI.analyzeAudioFromBase64(base64Data, blob.type)
+                setAudioResult(result.text)
+              } else {
+                setAudioResult('ElectronAPI not available.')
+              }
             } catch (err) {
               setAudioResult('Audio analysis failed.')
             }
@@ -226,7 +230,7 @@ const QueueCommands: React.FC<QueueCommandsProps> = ({
         <button
           className="text-red-500/70 hover:text-red-500/90 transition-colors hover:cursor-pointer"
           title="Sign Out"
-          onClick={() => window.electronAPI.quitApp()}
+          onClick={() => window.electronAPI?.quitApp()}
         >
           <IoLogOutOutline className="w-4 h-4" />
         </button>

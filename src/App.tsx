@@ -68,6 +68,8 @@ const App: React.FC = () => {
 
   // Effect for height monitoring
   useEffect(() => {
+    if (!window.electronAPI) return
+
     const cleanup = window.electronAPI.onResetView(() => {
       console.log("Received 'reset-view' message from main process.")
       queryClient.invalidateQueries(["screenshots"])
@@ -83,13 +85,13 @@ const App: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    if (!containerRef.current) return
+    if (!containerRef.current || !window.electronAPI) return
 
     const updateHeight = () => {
-      if (!containerRef.current) return
+      if (!containerRef.current || !window.electronAPI) return
       const height = containerRef.current.scrollHeight
       const width = containerRef.current.scrollWidth
-      window.electronAPI?.updateContentDimensions({ width, height })
+      window.electronAPI.updateContentDimensions({ width, height })
     }
 
     const resizeObserver = new ResizeObserver(() => {
@@ -121,6 +123,8 @@ const App: React.FC = () => {
   }, [view]) // Re-run when view changes
 
   useEffect(() => {
+    if (!window.electronAPI) return
+
     const cleanupFunctions = [
       window.electronAPI.onSolutionStart(() => {
         setView("solutions")

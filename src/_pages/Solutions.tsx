@@ -163,6 +163,11 @@ const Solutions: React.FC<SolutionsProps> = ({ setView }) => {
   const { data: extraScreenshots = [], refetch } = useQuery<Array<{ path: string; preview: string }>, Error>(
     ["extras"],
     async () => {
+      if (!window.electronAPI) {
+        console.warn("ElectronAPI not available, returning empty screenshots array")
+        return []
+      }
+
       try {
         const existing = await window.electronAPI.getScreenshots()
         return existing
@@ -187,6 +192,11 @@ const Solutions: React.FC<SolutionsProps> = ({ setView }) => {
   }
 
   const handleDeleteExtraScreenshot = async (index: number) => {
+    if (!window.electronAPI) {
+      console.warn("ElectronAPI not available")
+      return
+    }
+
     const screenshotToDelete = extraScreenshots[index]
 
     try {
@@ -207,7 +217,7 @@ const Solutions: React.FC<SolutionsProps> = ({ setView }) => {
   useEffect(() => {
     // Height update logic
     const updateDimensions = () => {
-      if (contentRef.current) {
+      if (contentRef.current && window.electronAPI) {
         let contentHeight = contentRef.current.scrollHeight
         const contentWidth = contentRef.current.scrollWidth
         if (isTooltipVisible) {
@@ -228,152 +238,160 @@ const Solutions: React.FC<SolutionsProps> = ({ setView }) => {
     updateDimensions()
 
     // Set up event listeners
-    const cleanupFunctions = [
-      window.electronAPI.onScreenshotTaken(() => refetch()),
-      window.electronAPI.onResetView(() => {
-        // Set resetting state first
-        setIsResetting(true)
+    const cleanupFunctions: (() => void)[] = []
 
-        // Clear the queries
-        queryClient.removeQueries(["solution"])
-        queryClient.removeQueries(["new_solution"])
+    if (window.electronAPI) {
+      cleanupFunctions.push(
+        window.electronAPI.onScreenshotTaken(() => refetch()),
+        window.electronAPI.onResetView(() => {
+          // Set resetting state first
+          setIsResetting(true)
 
-        // Reset other states
-        refetch()
+          // Clear the queries
+          queryClient.removeQueries(["solution"])
+          queryClient.removeQueries(["new_solution"])
 
-        // After a small delay, clear the resetting state
-        setTimeout(() => {
-          setIsResetting(false)
-        }, 0)
-      }),
-      window.electronAPI.onSolutionStart(async () => {
-        // Reset UI state for a new solution
-        setSolutionData(null)
-        setThoughtsData(null)
-        setTimeComplexityData(null)
-        setSpaceComplexityData(null)
-        setCustomContent(null)
-        setAudioResult(null)
+          // Reset other states
+          refetch()
 
-        // Start audio recording from user's microphone
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-          const mediaRecorder = new MediaRecorder(stream)
-          const chunks: Blob[] = []
-          mediaRecorder.ondataavailable = (e) => chunks.push(e.data)
-          mediaRecorder.start()
-          setAudioRecording(true)
-          // Record for 5 seconds (or adjust as needed)
-          setTimeout(() => mediaRecorder.stop(), 5000)
-          mediaRecorder.onstop = async () => {
-            setAudioRecording(false)
-            const blob = new Blob(chunks, { type: chunks[0]?.type || 'audio/webm' })
-            const reader = new FileReader()
-            reader.onloadend = async () => {
-              const base64Data = (reader.result as string).split(',')[1]
-              // Send audio to Gemini for analysis
-              try {
-                const result = await window.electronAPI.analyzeAudioFromBase64(
-                  base64Data,
-                  blob.type
-                )
-                // Store result in react-query cache
-                queryClient.setQueryData(["audio_result"], result)
-                setAudioResult(result)
-              } catch (err) {
-                console.error('Audio analysis failed:', err)
+          // After a small delay, clear the resetting state
+          setTimeout(() => {
+            setIsResetting(false)
+          }, 0)
+        }),
+        window.electronAPI.onSolutionStart(async () => {
+          // Reset UI state for a new solution
+          setSolutionData(null)
+          setThoughtsData(null)
+          setTimeComplexityData(null)
+          setSpaceComplexityData(null)
+          setCustomContent(null)
+          setAudioResult(null)
+
+          // Start audio recording from user's microphone
+          try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+            const mediaRecorder = new MediaRecorder(stream)
+            const chunks: Blob[] = []
+            mediaRecorder.ondataavailable = (e) => chunks.push(e.data)
+            mediaRecorder.start()
+            setAudioRecording(true)
+            // Record for 5 seconds (or adjust as needed)
+            setTimeout(() => mediaRecorder.stop(), 5000)
+            mediaRecorder.onstop = async () => {
+              setAudioRecording(false)
+              const blob = new Blob(chunks, { type: chunks[0]?.type || 'audio/webm' })
+              const reader = new FileReader()
+              reader.onloadend = async () => {
+                const base64Data = (reader.result as string).split(',')[1]
+                // Send audio to Gemini for analysis
+                try {
+                  if (window.electronAPI) {
+                    const result = await window.electronAPI.analyzeAudioFromBase64(
+                      base64Data,
+                      blob.type
+                    )
+                    // Store result in react-query cache
+                    queryClient.setQueryData(["audio_result"], result)
+                    setAudioResult(result)
+                  } else {
+                    console.error('ElectronAPI not available for audio analysis')
+                  }
+                } catch (err) {
+                  console.error('Audio analysis failed:', err)
+                }
               }
+              reader.readAsDataURL(blob)
             }
-            reader.readAsDataURL(blob)
+          } catch (err) {
+            console.error('Audio recording error:', err)
           }
-        } catch (err) {
-          console.error('Audio recording error:', err)
-        }
 
-        // Simulate receiving custom content shortly after start
-        setTimeout(() => {
-          setCustomContent(
-            "This is the dynamically generated content appearing after loading starts."
+          // Simulate receiving custom content shortly after start
+          setTimeout(() => {
+            setCustomContent(
+              "This is the dynamically generated content appearing after loading starts."
+            )
+          }, 1500) // Example delay
+        }),
+        //if there was an error processing the initial solution
+        window.electronAPI.onSolutionError((error: string) => {
+          showToast(
+            "Processing Failed",
+            "There was an error processing your extra screenshots.",
+            "error"
           )
-        }, 1500) // Example delay
-      }),
-      //if there was an error processing the initial solution
-      window.electronAPI.onSolutionError((error: string) => {
-        showToast(
-          "Processing Failed",
-          "There was an error processing your extra screenshots.",
-          "error"
-        )
-        // Reset solutions in the cache (even though this shouldn't ever happen) and complexities to previous states
-        const solution = queryClient.getQueryData(["solution"]) as {
-          code: string
-          thoughts: string[]
-          time_complexity: string
-          space_complexity: string
-        } | null
-        if (!solution) {
-          setView("queue") //make sure that this is correct. or like make sure there's a toast or something
-        }
-        setSolutionData(solution?.code || null)
-        setThoughtsData(solution?.thoughts || null)
-        setTimeComplexityData(solution?.time_complexity || null)
-        setSpaceComplexityData(solution?.space_complexity || null)
-        console.error("Processing error:", error)
-      }),
-      //when the initial solution is generated, we'll set the solution data to that
-      window.electronAPI.onSolutionSuccess((data) => {
-        if (!data?.solution) {
-          console.warn("Received empty or invalid solution data")
-          return
-        }
+          // Reset solutions in the cache (even though this shouldn't ever happen) and complexities to previous states
+          const solution = queryClient.getQueryData(["solution"]) as {
+            code: string
+            thoughts: string[]
+            time_complexity: string
+            space_complexity: string
+          } | null
+          if (!solution) {
+            setView("queue") //make sure that this is correct. or like make sure there's a toast or something
+          }
+          setSolutionData(solution?.code || null)
+          setThoughtsData(solution?.thoughts || null)
+          setTimeComplexityData(solution?.time_complexity || null)
+          setSpaceComplexityData(solution?.space_complexity || null)
+          console.error("Processing error:", error)
+        }),
+        //when the initial solution is generated, we'll set the solution data to that
+        window.electronAPI.onSolutionSuccess((data) => {
+          if (!data?.solution) {
+            console.warn("Received empty or invalid solution data")
+            return
+          }
 
-        console.log({ solution: data.solution })
+          console.log({ solution: data.solution })
 
-        const solutionData = {
-          code: data.solution.code,
-          thoughts: data.solution.thoughts,
-          time_complexity: data.solution.time_complexity,
-          space_complexity: data.solution.space_complexity
-        }
+          const solutionData = {
+            code: data.solution.code,
+            thoughts: data.solution.thoughts,
+            time_complexity: data.solution.time_complexity,
+            space_complexity: data.solution.space_complexity
+          }
 
-        queryClient.setQueryData(["solution"], solutionData)
-        setSolutionData(solutionData.code || null)
-        setThoughtsData(solutionData.thoughts || null)
-        setTimeComplexityData(solutionData.time_complexity || null)
-        setSpaceComplexityData(solutionData.space_complexity || null)
-      }),
+          queryClient.setQueryData(["solution"], solutionData)
+          setSolutionData(solutionData.code || null)
+          setThoughtsData(solutionData.thoughts || null)
+          setTimeComplexityData(solutionData.time_complexity || null)
+          setSpaceComplexityData(solutionData.space_complexity || null)
+        }),
 
-      //########################################################
-      //DEBUG EVENTS
-      //########################################################
-      window.electronAPI.onDebugStart(() => {
-        //we'll set the debug processing state to true and use that to render a little loader
-        setDebugProcessing(true)
-      }),
-      //the first time debugging works, we'll set the view to debug and populate the cache with the data
-      window.electronAPI.onDebugSuccess((data) => {
-        console.log({ debug_data: data })
+        //########################################################
+        //DEBUG EVENTS
+        //########################################################
+        window.electronAPI.onDebugStart(() => {
+          //we'll set the debug processing state to true and use that to render a little loader
+          setDebugProcessing(true)
+        }),
+        //the first time debugging works, we'll set the view to debug and populate the cache with the data
+        window.electronAPI.onDebugSuccess((data) => {
+          console.log({ debug_data: data })
 
-        queryClient.setQueryData(["new_solution"], data.solution)
-        setDebugProcessing(false)
-      }),
-      //when there was an error in the initial debugging, we'll show a toast and stop the little generating pulsing thing.
-      window.electronAPI.onDebugError(() => {
-        showToast(
-          "Processing Failed",
-          "There was an error debugging your code.",
-          "error"
-        )
-        setDebugProcessing(false)
-      }),
-      window.electronAPI.onProcessingNoScreenshots(() => {
-        showToast(
-          "No Screenshots",
-          "There are no extra screenshots to process.",
-          "neutral"
-        )
-      })
-    ]
+          queryClient.setQueryData(["new_solution"], data.solution)
+          setDebugProcessing(false)
+        }),
+        //when there was an error in the initial debugging, we'll show a toast and stop the little generating pulsing thing.
+        window.electronAPI.onDebugError(() => {
+          showToast(
+            "Processing Failed",
+            "There was an error debugging your code.",
+            "error"
+          )
+          setDebugProcessing(false)
+        }),
+        window.electronAPI.onProcessingNoScreenshots(() => {
+          showToast(
+            "No Screenshots",
+            "There are no extra screenshots to process.",
+            "neutral"
+          )
+        })
+      )
+    }
 
     return () => {
       resizeObserver.disconnect()
