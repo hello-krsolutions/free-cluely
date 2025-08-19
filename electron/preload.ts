@@ -176,5 +176,10 @@ contextBridge.exposeInMainWorld("electronAPI", {
   analyzeAudioFile: (path: string) => ipcRenderer.invoke("analyze-audio-file", path),
   analyzeImageFile: (path: string) => ipcRenderer.invoke("analyze-image-file", path),
   quitApp: () => ipcRenderer.invoke("quit-app"),
-  invoke: (channel: string, ...args: any[]) => ipcRenderer.invoke(channel, ...args)
+  invoke: (channel: string, ...args: any[]) => ipcRenderer.invoke(channel, ...args),
+
+  // Settings management
+  getSettings: () => ipcRenderer.invoke("get-settings"),
+  saveSettings: (settings: any) => ipcRenderer.invoke("save-settings", settings),
+  testAiConnection: (data: { provider: string; apiKey: string; model: string }) => ipcRenderer.invoke("test-ai-connection", data)
 } as ElectronAPI)
