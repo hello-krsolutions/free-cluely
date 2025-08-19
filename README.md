@@ -165,6 +165,27 @@ pnpm run dev
 pnpm run app:dev
 ```
 
+### Building Installable Files
+
+Create distribution packages for all platforms:
+
+```bash
+# Build for all platforms
+pnpm run app:build
+
+# Build for specific platforms
+pnpm run app:build -- --mac     # macOS (DMG + ZIP)
+pnpm run app:build -- --win     # Windows (NSIS + Portable)
+pnpm run app:build -- --linux   # Linux (AppImage + DEB + TAR.GZ)
+```
+
+**Output files** (in `release/` directory):
+- **macOS**: `kanapadadu-{version}.dmg`, `kanapadadu-{version}-mac.zip`
+- **Windows**: `kanapadadu Setup {version}.exe`, `kanapadadu {version}.exe`
+- **Linux**: `kanapadadu-{version}.AppImage`, `kanapadadu_{version}_amd64.deb`
+
+For detailed build instructions, see [BUILD.md](BUILD.md).
+
 ### Project Structure
 
 ```
@@ -269,7 +290,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**Built with ❤️ for the developer community**
+**Built with ❤��� for the developer community**
 
 [⭐ Star us on GitHub](https://github.com/hello-krsolutions/free-cluely) • [🚀 Download Now](#installation) • [📖 Read the Docs](#documentation)
 
