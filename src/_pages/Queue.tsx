@@ -8,7 +8,7 @@ import {
   ToastVariant,
   ToastMessage
 } from "../components/ui/toast"
-import QueueCommands from "../components/Queue/QueueCommands"
+import ModernCommandBar from "../components/Queue/ModernCommandBar"
 
 interface QueueProps {
   setView: React.Dispatch<React.SetStateAction<"queue" | "solutions" | "debug" | "settings">>
