@@ -230,8 +230,8 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
           </div>
           {/* Conditional Chat Interface */}
           {isChatOpen && (
-            <div className="mt-4 w-full mx-auto liquid-glass chat-container p-4 flex flex-col">
-            <div className="flex-1 overflow-y-auto mb-3 p-3 rounded-lg bg-white/10 backdrop-blur-md max-h-64 min-h-[120px] glass-content border border-white/20 shadow-lg">
+            <div className="mt-4 w-full mx-auto p-4 flex flex-col">
+            <div className="flex-1 overflow-y-auto mb-3 p-4 rounded-2xl bg-gray-900/95 backdrop-blur-xl border border-gray-700/50 max-h-64 min-h-[120px] shadow-2xl">
               {chatMessages.length === 0 ? (
                 <div className="text-sm text-gray-600 text-center mt-8">
                   💬 Chat with Gemini 2.5 Flash
@@ -261,7 +261,7 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
                 <div className="flex justify-start mb-3">
                   <div className="bg-white/85 text-gray-600 px-3 py-1.5 rounded-xl text-xs backdrop-blur-sm border border-gray-200/50 shadow-md mr-12">
                     <span className="inline-flex items-center">
-                      <span className="animate-pulse text-gray-400">��</span>
+                      <span className="animate-pulse text-gray-400">●</span>
                       <span className="animate-pulse animation-delay-200 text-gray-400">●</span>
                       <span className="animate-pulse animation-delay-400 text-gray-400">●</span>
                       <span className="ml-2">Gemini is thinking...</span>
