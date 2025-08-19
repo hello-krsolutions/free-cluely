@@ -105,8 +105,8 @@ const Settings: React.FC<SettingsProps> = ({ onClose }) => {
     setTestResults(prev => ({ ...prev, [provider]: null }));
 
     try {
-      if (window.electronAPI?.invoke) {
-        const result = await window.electronAPI.invoke('test-ai-connection', {
+      if (window.electronAPI?.testAiConnection) {
+        const result = await window.electronAPI.testAiConnection({
           provider,
           apiKey: settings.providers[provider].apiKey,
           model: settings.providers[provider].model,
