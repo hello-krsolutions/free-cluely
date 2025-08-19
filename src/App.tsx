@@ -79,12 +79,24 @@ const App: React.FC = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        if (window.electronAPI?.invoke) {
-          const settings = await window.electronAPI.invoke('get-settings')
+        if (window.electronAPI?.getSettings) {
+          const settings = await window.electronAPI.getSettings()
           const hasValidProvider = Object.values(settings?.providers || {}).some(
             (p: any) => p?.enabled && p?.apiKey
           )
           setIsAuthenticated(hasValidProvider)
+        } else {
+          // Check localStorage in web environment
+          const webSettings = localStorage.getItem('kanapadadu-settings')
+          if (webSettings) {
+            const settings = JSON.parse(webSettings)
+            const hasValidProvider = Object.values(settings?.providers || {}).some(
+              (p: any) => p?.enabled && p?.apiKey
+            )
+            setIsAuthenticated(hasValidProvider)
+          } else {
+            setIsAuthenticated(false)
+          }
         }
       } catch (error) {
         console.error('Error checking auth status:', error)
