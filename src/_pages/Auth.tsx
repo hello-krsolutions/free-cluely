@@ -47,46 +47,59 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
   const validateApiKey = async () => {
     if (!apiKey.trim()) return;
 
+    console.log(`[Auth] Starting validation for ${provider} with key: ${apiKey.substring(0, 10)}...`);
     setIsValidating(true);
     setValidationResult(null);
 
     try {
-      if (window.electronAPI?.invoke) {
-        const result = await window.electronAPI.invoke('test-ai-connection', {
-          provider,
-          apiKey: apiKey.trim(),
-          model: getDefaultModel(provider)
-        });
-        setValidationResult(result.success);
-        
-        if (result.success) {
-          // Save the settings
-          const settings = {
-            providers: {
-              gemini: { apiKey: '', enabled: false, model: 'gemini-2.0-flash' },
-              openai: { apiKey: '', enabled: false, model: 'gpt-4o' },
-              claude: { apiKey: '', enabled: false, model: 'claude-3.5-sonnet' }
-            },
-            defaultProvider: provider,
-            theme: 'auto'
-          };
-          
-          settings.providers[provider] = {
-            apiKey: apiKey.trim(),
-            enabled: true,
-            model: getDefaultModel(provider)
-          };
+      if (!window.electronAPI?.invoke) {
+        console.error('[Auth] ElectronAPI not available');
+        setValidationResult(false);
+        return;
+      }
 
-          await window.electronAPI.invoke('save-settings', settings);
-          
-          // Complete setup after a brief delay
-          setTimeout(() => {
-            onComplete();
-          }, 1000);
-        }
+      console.log('[Auth] Calling test-ai-connection...');
+      const result = await window.electronAPI.invoke('test-ai-connection', {
+        provider,
+        apiKey: apiKey.trim(),
+        model: getDefaultModel(provider)
+      });
+
+      console.log('[Auth] Test result:', result);
+      setValidationResult(result.success);
+
+      if (result.success) {
+        console.log('[Auth] Validation successful, saving settings...');
+        // Save the settings
+        const settings = {
+          providers: {
+            gemini: { apiKey: '', enabled: false, model: 'gemini-2.0-flash' },
+            openai: { apiKey: '', enabled: false, model: 'gpt-4o' },
+            claude: { apiKey: '', enabled: false, model: 'claude-3.5-sonnet' }
+          },
+          defaultProvider: provider,
+          theme: 'auto'
+        };
+
+        settings.providers[provider] = {
+          apiKey: apiKey.trim(),
+          enabled: true,
+          model: getDefaultModel(provider)
+        };
+
+        const saveResult = await window.electronAPI.invoke('save-settings', settings);
+        console.log('[Auth] Settings saved:', saveResult);
+
+        // Complete setup after a brief delay
+        setTimeout(() => {
+          console.log('[Auth] Completing setup...');
+          onComplete();
+        }, 1000);
+      } else {
+        console.log('[Auth] Validation failed:', result.error || 'Unknown error');
       }
     } catch (error) {
-      console.error('API key validation failed:', error);
+      console.error('[Auth] API key validation failed:', error);
       setValidationResult(false);
     } finally {
       setIsValidating(false);
