@@ -192,6 +192,11 @@ const Solutions: React.FC<SolutionsProps> = ({ setView }) => {
   }
 
   const handleDeleteExtraScreenshot = async (index: number) => {
+    if (!window.electronAPI) {
+      console.warn("ElectronAPI not available")
+      return
+    }
+
     const screenshotToDelete = extraScreenshots[index]
 
     try {
