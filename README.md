@@ -23,7 +23,7 @@ kanapadadu is a powerful desktop application designed to assist developers durin
 
 ### 🎯 Key Features
 
-- **��� Screenshot Analysis**: Capture and analyze problem statements with AI vision
+- **🔍 Screenshot Analysis**: Capture and analyze problem statements with AI vision
 - **🤖 Multiple AI Providers**: Support for Gemini, OpenAI, and Claude
 - **🎤 Voice Input**: Record and analyze audio for hands-free interaction
 - **💬 Real-time Chat**: Instant AI assistance with context awareness
@@ -271,6 +271,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Built with ❤️ for the developer community**
 
-[⭐ Star us on GitHub](https://github.com/ibttf/interview-coder-frontend) • [🚀 Download Now](#installation) • [📖 Read the Docs](#documentation)
+[⭐ Star us on GitHub](https://github.com/hello-krsolutions/free-cluely) • [🚀 Download Now](#installation) • [📖 Read the Docs](#documentation)
 
 </div>
