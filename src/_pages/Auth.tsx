@@ -55,6 +55,64 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
     }
   };
 
+  const validateApiKeyWeb = async (provider: string, apiKey: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      if (provider === 'gemini') {
+        // Test Gemini API directly
+        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + apiKey, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: 'Hello' }] }]
+          })
+        });
+
+        if (response.ok) {
+          return { success: true };
+        } else {
+          const error = await response.text();
+          return { success: false, error: 'Invalid API key or quota exceeded' };
+        }
+      } else if (provider === 'openai') {
+        // Test OpenAI API
+        const response = await fetch('https://api.openai.com/v1/models', {
+          headers: { 'Authorization': `Bearer ${apiKey}` }
+        });
+
+        if (response.ok) {
+          return { success: true };
+        } else {
+          return { success: false, error: 'Invalid OpenAI API key' };
+        }
+      } else if (provider === 'claude') {
+        // Test Claude API
+        const response = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': apiKey,
+            'anthropic-version': '2023-06-01'
+          },
+          body: JSON.stringify({
+            model: 'claude-3-haiku-20240307',
+            max_tokens: 1,
+            messages: [{ role: 'user', content: 'Hello' }]
+          })
+        });
+
+        if (response.ok) {
+          return { success: true };
+        } else {
+          return { success: false, error: 'Invalid Claude API key' };
+        }
+      }
+
+      return { success: false, error: 'Unknown provider' };
+    } catch (error) {
+      return { success: false, error: 'Network error or CORS issue' };
+    }
+  };
+
   const validateApiKey = async () => {
     if (!apiKey.trim()) return;
 
@@ -64,18 +122,21 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
     setValidationError('');
 
     try {
-      if (!window.electronAPI?.testAiConnection) {
-        console.error('[Auth] ElectronAPI testAiConnection not available');
-        setValidationResult(false);
-        return;
-      }
+      let result;
 
-      console.log('[Auth] Calling testAiConnection...');
-      const result = await window.electronAPI.testAiConnection({
-        provider,
-        apiKey: apiKey.trim(),
-        model: getDefaultModel(provider)
-      });
+      if (window.electronAPI?.testAiConnection) {
+        // Use Electron API if available
+        console.log('[Auth] Using Electron API validation...');
+        result = await window.electronAPI.testAiConnection({
+          provider,
+          apiKey: apiKey.trim(),
+          model: getDefaultModel(provider)
+        });
+      } else {
+        // Use web validation if in browser
+        console.log('[Auth] Using web API validation...');
+        result = await validateApiKeyWeb(provider, apiKey.trim());
+      }
 
       console.log('[Auth] Test result:', result);
       setValidationResult(result.success);
@@ -99,8 +160,14 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
           model: getDefaultModel(provider)
         };
 
-        const saveResult = await window.electronAPI.saveSettings(settings);
-        console.log('[Auth] Settings saved:', saveResult);
+        if (window.electronAPI?.saveSettings) {
+          const saveResult = await window.electronAPI.saveSettings(settings);
+          console.log('[Auth] Settings saved to Electron:', saveResult);
+        } else {
+          // Save to localStorage in web environment
+          localStorage.setItem('kanapadadu-settings', JSON.stringify(settings));
+          console.log('[Auth] Settings saved to localStorage');
+        }
 
         // Complete setup after a brief delay
         setTimeout(() => {
