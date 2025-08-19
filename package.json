@@ -78,7 +78,7 @@
       "icon": "assets/icons/png/",
       "category": "Development",
       "synopsis": "AI-powered coding interview assistant",
-      "description": "Interview Coder is an AI-powered assistant for coding interviews and problem solving, featuring screenshot analysis, multiple AI providers, and real-time chat assistance."
+      "description": "kanapadadu is an AI-powered assistant for coding interviews and problem solving, featuring screenshot analysis, multiple AI providers, and real-time chat assistance."
     },
     "nsis": {
       "oneClick": false,
