@@ -271,7 +271,7 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
               )}
             </div>
             <form
-              className="flex gap-2 items-center glass-content"
+              className="flex gap-3 items-center"
               onSubmit={e => {
                 e.preventDefault();
                 handleChatSend();
@@ -279,7 +279,7 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
             >
               <input
                 ref={chatInputRef}
-                className="flex-1 rounded-lg px-3 py-2 bg-white/25 backdrop-blur-md text-gray-800 placeholder-gray-500 text-xs focus:outline-none focus:ring-1 focus:ring-gray-400/60 border border-white/40 shadow-lg transition-all duration-200"
+                className="flex-1 rounded-xl px-4 py-3 bg-gray-700/80 backdrop-blur-xl text-gray-100 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-600/50 shadow-lg transition-all duration-200"
                 placeholder="Type your message..."
                 value={chatInput}
                 onChange={e => setChatInput(e.target.value)}
@@ -287,12 +287,12 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
               />
               <button
                 type="submit"
-                className="p-2 rounded-lg bg-gray-600/80 hover:bg-gray-700/80 border border-gray-500/60 flex items-center justify-center transition-all duration-200 backdrop-blur-sm shadow-lg disabled:opacity-50"
+                className="p-3 rounded-xl bg-blue-500 hover:bg-blue-600 flex items-center justify-center transition-all duration-200 shadow-lg disabled:opacity-50 disabled:hover:bg-blue-500"
                 disabled={chatLoading || !chatInput.trim()}
                 tabIndex={-1}
                 aria-label="Send"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="white" className="w-4 h-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="white" className="w-5 h-5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-7.5-15-7.5v6l10 1.5-10 1.5v6z" />
                 </svg>
               </button>
