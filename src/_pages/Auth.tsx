@@ -306,6 +306,14 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
                   {providerInfo.name}
                 </a>
               </p>
+
+              {/* Debug Info */}
+              <div className="text-xs text-gray-400 mt-2 p-2 bg-gray-50 rounded">
+                <div>ElectronAPI: {window.electronAPI ? '✅ Available' : '��� Not Available'}</div>
+                <div>Provider: {provider}</div>
+                <div>Model: {getDefaultModel(provider)}</div>
+                {validationError && <div className="text-red-500">Error: {validationError}</div>}
+              </div>
             </div>
 
             <div className="flex gap-3">
