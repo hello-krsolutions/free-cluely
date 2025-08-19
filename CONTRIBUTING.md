@@ -328,4 +328,4 @@ Don't hesitate to ask questions! We're here to help:
 - Join our [Discord](https://discord.gg/interview-coder)
 - Email us at [dev@interviewcoder.com](mailto:dev@interviewcoder.com)
 
-Thank you for contributing to Interview Coder! 🚀
+Thank you for contributing to kanapadadu! 🚀
