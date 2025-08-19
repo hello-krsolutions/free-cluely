@@ -53,7 +53,7 @@ Visit our [Releases Page](https://github.com/ibttf/interview-coder-frontend/rele
 
 ### 1. First Launch
 
-When you first open Interview Coder, you'll be greeted with a welcome screen:
+When you first open kanapadadu, you'll be greeted with a welcome screen:
 
 1. Click **"Get Started"** to begin setup
 2. Choose your preferred AI provider (Gemini, OpenAI, or Claude)
