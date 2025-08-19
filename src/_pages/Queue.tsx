@@ -37,6 +37,11 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
   const { data: screenshots = [], refetch } = useQuery<Array<{ path: string; preview: string }>, Error>(
     ["screenshots"],
     async () => {
+      if (!window.electronAPI) {
+        console.warn("ElectronAPI not available, returning empty screenshots array")
+        return []
+      }
+
       try {
         const existing = await window.electronAPI.getScreenshots()
         return existing
@@ -64,6 +69,11 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
   }
 
   const handleDeleteScreenshot = async (index: number) => {
+    if (!window.electronAPI) {
+      console.warn("ElectronAPI not available")
+      return
+    }
+
     const screenshotToDelete = screenshots[index]
 
     try {
@@ -83,7 +93,7 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
   }
 
   const handleChatSend = async () => {
-    if (!chatInput.trim()) return
+    if (!chatInput.trim() || !window.electronAPI) return
     setChatMessages((msgs) => [...msgs, { role: "user", text: chatInput }])
     setChatLoading(true)
     setChatInput("")
@@ -100,7 +110,7 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
 
   useEffect(() => {
     const updateDimensions = () => {
-      if (contentRef.current) {
+      if (contentRef.current && window.electronAPI) {
         let contentHeight = contentRef.current.scrollHeight
         const contentWidth = contentRef.current.scrollWidth
         if (isTooltipVisible) {
@@ -119,26 +129,30 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
     }
     updateDimensions()
 
-    const cleanupFunctions = [
-      window.electronAPI.onScreenshotTaken(() => refetch()),
-      window.electronAPI.onResetView(() => refetch()),
-      window.electronAPI.onSolutionError((error: string) => {
-        showToast(
-          "Processing Failed",
-          "There was an error processing your screenshots.",
-          "error"
-        )
-        setView("queue")
-        console.error("Processing error:", error)
-      }),
-      window.electronAPI.onProcessingNoScreenshots(() => {
-        showToast(
-          "No Screenshots",
-          "There are no screenshots to process.",
-          "neutral"
-        )
-      })
-    ]
+    const cleanupFunctions: (() => void)[] = []
+
+    if (window.electronAPI) {
+      cleanupFunctions.push(
+        window.electronAPI.onScreenshotTaken(() => refetch()),
+        window.electronAPI.onResetView(() => refetch()),
+        window.electronAPI.onSolutionError((error: string) => {
+          showToast(
+            "Processing Failed",
+            "There was an error processing your screenshots.",
+            "error"
+          )
+          setView("queue")
+          console.error("Processing error:", error)
+        }),
+        window.electronAPI.onProcessingNoScreenshots(() => {
+          showToast(
+            "No Screenshots",
+            "There are no screenshots to process.",
+            "neutral"
+          )
+        })
+      )
+    }
 
     return () => {
       resizeObserver.disconnect()
@@ -148,6 +162,8 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
 
   // Seamless screenshot-to-LLM flow
   useEffect(() => {
+    if (!window.electronAPI) return
+
     // Listen for screenshot taken event
     const unsubscribe = window.electronAPI.onScreenshotTaken(async (data) => {
       // Refetch screenshots to update the queue
@@ -157,7 +173,7 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
       try {
         // Get the latest screenshot path
         const latest = data?.path || (Array.isArray(data) && data.length > 0 && data[data.length - 1]?.path);
-        if (latest) {
+        if (latest && window.electronAPI) {
           // Call the LLM to process the screenshot
           const response = await window.electronAPI.invoke("analyze-image-file", latest);
           setChatMessages((msgs) => [...msgs, { role: "gemini", text: response.text }]);
