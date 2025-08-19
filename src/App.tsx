@@ -3,6 +3,7 @@ import Queue from "./_pages/Queue"
 import { ToastViewport } from "@radix-ui/react-toast"
 import { useEffect, useRef, useState } from "react"
 import Solutions from "./_pages/Solutions"
+import Settings from "./_pages/Settings"
 import { QueryClient, QueryClientProvider } from "react-query"
 
 declare global {
