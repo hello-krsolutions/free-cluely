@@ -152,8 +152,8 @@ Intelligent conversation with context awareness:
 
 ```bash
 # Clone the repository
-git clone https://github.com/ibttf/interview-coder-frontend.git
-cd interview-coder-frontend
+git clone https://github.com/hello-krsolutions/free-cluely.git
+cd free-cluely
 
 # Install dependencies
 pnpm install
