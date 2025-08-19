@@ -80,7 +80,7 @@ If you're upgrading from v1.0.0, your existing Gemini API key will be automatica
 
 ### v1.0.0 - Initial Release
 
-The first stable release of Interview Coder brings AI-powered assistance to coding interviews and problem-solving sessions.
+The first stable release of kanapadadu brings AI-powered assistance to coding interviews and problem-solving sessions.
 
 **Features:**
 - Screenshot capture and AI analysis
