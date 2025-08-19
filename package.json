@@ -13,37 +13,103 @@
     "watch": "tsc -p electron/tsconfig.json --watch"
   },
   "build": {
-    "appId": "com.electron.interview-coder",
+    "appId": "com.interviewcoder.app",
     "productName": "Interview Coder",
+    "copyright": "Copyright © 2024 Interview Coder",
     "files": [
       "dist/**/*",
       "dist-electron/**/*",
-      "package.json"
+      "package.json",
+      "node_modules/**/*"
     ],
     "directories": {
-      "output": "release"
+      "output": "release",
+      "buildResources": "assets"
     },
     "mac": {
-      "category": "public.app-category.utilities",
+      "category": "public.app-category.developer-tools",
       "target": [
-        "dmg",
-        "zip"
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        },
+        {
+          "target": "zip",
+          "arch": ["x64", "arm64"]
+        }
       ],
-      "icon": "assets/icons/mac/icon.icns"
+      "icon": "assets/icons/mac/icon.icns",
+      "entitlements": "assets/entitlements.mac.plist",
+      "entitlementsInherit": "assets/entitlements.mac.plist",
+      "darkModeSupport": true,
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false
     },
     "win": {
       "target": [
-        "nsis",
-        "portable"
+        {
+          "target": "nsis",
+          "arch": ["x64", "ia32"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64", "ia32"]
+        }
       ],
-      "icon": "assets/icons/win/icon.ico"
+      "icon": "assets/icons/win/icon.ico",
+      "publisherName": "Interview Coder",
+      "requestedExecutionLevel": "asInvoker"
     },
     "linux": {
       "target": [
-        "AppImage",
-        "deb"
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        },
+        {
+          "target": "deb",
+          "arch": ["x64"]
+        },
+        {
+          "target": "tar.gz",
+          "arch": ["x64"]
+        }
       ],
-      "icon": "assets/icons/png/icon-256x256.png"
+      "icon": "assets/icons/png/",
+      "category": "Development",
+      "synopsis": "AI-powered coding interview assistant",
+      "description": "Interview Coder is an AI-powered assistant for coding interviews and problem solving, featuring screenshot analysis, multiple AI providers, and real-time chat assistance."
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "installerIcon": "assets/icons/win/icon.ico",
+      "uninstallerIcon": "assets/icons/win/icon.ico",
+      "installerHeaderIcon": "assets/icons/win/icon.ico",
+      "deleteAppDataOnUninstall": false
+    },
+    "dmg": {
+      "background": "assets/dmg-background.png",
+      "iconSize": 100,
+      "contents": [
+        {
+          "x": 380,
+          "y": 280,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 110,
+          "y": 280,
+          "type": "file"
+        }
+      ],
+      "window": {
+        "width": 540,
+        "height": 380
+      }
     },
     "publish": [
       {
@@ -86,7 +152,6 @@
     "wait-on": "^8.0.1"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.60.0",
     "@google/genai": "^0.12.0",
     "@google/generative-ai": "^0.2.1",
     "@radix-ui/react-dialog": "^1.1.2",
@@ -97,7 +162,6 @@
     "diff": "^7.0.0",
     "form-data": "^4.0.1",
     "lucide-react": "^0.460.0",
-    "openai": "^5.12.2",
     "react": "^18.3.1",
     "react-code-blocks": "^0.1.6",
     "react-dom": "^18.3.1",
