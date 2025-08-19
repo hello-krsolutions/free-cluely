@@ -6,6 +6,7 @@ interface QueueCommandsProps {
   onTooltipVisibilityChange: (visible: boolean, height: number) => void
   screenshots: Array<{ path: string; preview: string }>
   onChatToggle: () => void
+  onSettingsClick?: () => void
 }
 
 const QueueCommands: React.FC<QueueCommandsProps> = ({
