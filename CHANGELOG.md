@@ -142,9 +142,9 @@ There are no breaking changes in v1.1.x. All existing functionality remains comp
 
 We value your feedback! Please report issues or suggest features:
 
-- **GitHub Issues**: [Report a bug](https://github.com/ibttf/interview-coder-frontend/issues/new?template=bug_report.md)
-- **Feature Requests**: [Suggest a feature](https://github.com/ibttf/interview-coder-frontend/issues/new?template=feature_request.md)
-- **Community**: [Join our Discord](https://discord.gg/interview-coder)
+- **GitHub Issues**: [Report a bug](https://github.com/hello-krsolutions/free-cluely/issues/new?template=bug_report.md)
+- **Feature Requests**: [Suggest a feature](https://github.com/hello-krsolutions/free-cluely/issues/new?template=feature_request.md)
+- **Email Support**: [hello@krmrsolutions.com](mailto:hello@krmrsolutions.com)
 
 ---
 
