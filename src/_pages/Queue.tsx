@@ -233,8 +233,8 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
             <div className="mt-4 w-full mx-auto p-4 flex flex-col">
             <div className="flex-1 overflow-y-auto mb-3 p-4 rounded-2xl bg-gray-900/95 backdrop-blur-xl border border-gray-700/50 max-h-64 min-h-[120px] shadow-2xl">
               {chatMessages.length === 0 ? (
-                <div className="text-sm text-gray-600 text-center mt-8">
-                  💬 Chat with Gemini 2.5 Flash
+                <div className="text-sm text-gray-400 text-center mt-8">
+                  💬 Chat with AI Assistant
                   <br />
                   <span className="text-xs text-gray-500">Take a screenshot (Cmd+H) for automatic analysis</span>
                 </div>
@@ -245,10 +245,10 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
                     className={`w-full flex ${msg.role === "user" ? "justify-end" : "justify-start"} mb-3`}
                   >
                     <div
-                      className={`max-w-[80%] px-3 py-1.5 rounded-xl text-xs shadow-md backdrop-blur-sm border ${
-                        msg.role === "user" 
-                          ? "bg-gray-700/80 text-gray-100 ml-12 border-gray-600/40" 
-                          : "bg-white/85 text-gray-700 mr-12 border-gray-200/50"
+                      className={`max-w-[80%] px-4 py-2 rounded-2xl text-sm shadow-lg ${
+                        msg.role === "user"
+                          ? "bg-blue-500 text-white ml-12"
+                          : "bg-gray-700/80 text-gray-100 mr-12"
                       }`}
                       style={{ wordBreak: "break-word", lineHeight: "1.4" }}
                     >
