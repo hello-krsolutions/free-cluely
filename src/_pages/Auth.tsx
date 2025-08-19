@@ -310,9 +310,9 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
               {/* Debug Info */}
               <div className="text-xs text-gray-400 mt-2 p-2 bg-gray-50 rounded">
                 <div>ElectronAPI: {window.electronAPI ? '✅ Available' : '❌ Not Available'}</div>
-                <div>testAiConnection: {window.electronAPI?.testAiConnection ? '✅ Available' : '❌ Not Available'}</div>
-                <div>getSettings: {window.electronAPI?.getSettings ? '✅ Available' : '❌ Not Available'}</div>
-                <div>saveSettings: {window.electronAPI?.saveSettings ? '✅ Available' : '❌ Not Available'}</div>
+                <div>testAiConnection: {window.electronAPI && 'testAiConnection' in window.electronAPI ? '✅ Available' : '❌ Not Available'}</div>
+                <div>getSettings: {window.electronAPI && 'getSettings' in window.electronAPI ? '✅ Available' : '❌ Not Available'}</div>
+                <div>saveSettings: {window.electronAPI && 'saveSettings' in window.electronAPI ? '✅ Available' : '❌ Not Available'}</div>
                 <div>Provider: {provider}</div>
                 <div>Model: {getDefaultModel(provider)}</div>
                 {validationError && <div className="text-red-500">Error: {validationError}</div>}
