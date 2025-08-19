@@ -54,14 +54,14 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
     setValidationError('');
 
     try {
-      if (!window.electronAPI?.invoke) {
-        console.error('[Auth] ElectronAPI not available');
+      if (!window.electronAPI?.testAiConnection) {
+        console.error('[Auth] ElectronAPI testAiConnection not available');
         setValidationResult(false);
         return;
       }
 
-      console.log('[Auth] Calling test-ai-connection...');
-      const result = await window.electronAPI.invoke('test-ai-connection', {
+      console.log('[Auth] Calling testAiConnection...');
+      const result = await window.electronAPI.testAiConnection({
         provider,
         apiKey: apiKey.trim(),
         model: getDefaultModel(provider)
