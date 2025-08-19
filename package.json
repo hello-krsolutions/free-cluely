@@ -114,8 +114,8 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "ibttf",
-        "repo": "interview-coder-frontend"
+        "owner": "hello-krsolutions",
+        "repo": "free-cluely"
       }
     ]
   },
