@@ -301,9 +301,8 @@ async function validateApiKey(provider: string, apiKey: string): Promise<boolean
 
 ### Getting Help
 
-- **Discord**: [Join our community](https://discord.gg/interview-coder)
-- **GitHub Discussions**: [Ask questions](https://github.com/ibttf/interview-coder-frontend/discussions)
-- **Email**: [dev@interviewcoder.com](mailto:dev@interviewcoder.com)
+- **GitHub Discussions**: [Ask questions](https://github.com/hello-krsolutions/free-cluely/discussions)
+- **Email**: [hello@krmrsolutions.com](mailto:hello@krmrsolutions.com)
 
 ### Staying Updated
 
