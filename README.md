@@ -35,7 +35,7 @@ kanapadadu is a powerful desktop application designed to assist developers durin
 
 ### Download Pre-built Applications
 
-Visit our [Releases Page](https://github.com/ibttf/interview-coder-frontend/releases) to download the latest version:
+Visit our [Releases Page](https://github.com/hello-krsolutions/free-cluely/releases) to download the latest version:
 
 - **macOS**: Download `Interview-Coder-{version}.dmg`
 - **Windows**: Download `Interview-Coder-Setup-{version}.exe`
