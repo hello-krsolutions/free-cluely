@@ -64,8 +64,8 @@ const Settings: React.FC<SettingsProps> = ({ onClose }) => {
 
   const saveSettings = async (newSettings: Settings) => {
     try {
-      if (window.electronAPI?.invoke) {
-        await window.electronAPI.invoke('save-settings', newSettings);
+      if (window.electronAPI?.saveSettings) {
+        await window.electronAPI.saveSettings(newSettings);
         setSettings(newSettings);
       }
     } catch (error) {
