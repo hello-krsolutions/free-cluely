@@ -148,4 +148,4 @@ We value your feedback! Please report issues or suggest features:
 
 ---
 
-*For detailed technical changes, see the [commit history](https://github.com/ibttf/interview-coder-frontend/commits/main).*
+*For detailed technical changes, see the [commit history](https://github.com/hello-krsolutions/free-cluely/commits/main).*
