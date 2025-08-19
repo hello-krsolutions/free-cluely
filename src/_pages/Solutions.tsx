@@ -217,7 +217,7 @@ const Solutions: React.FC<SolutionsProps> = ({ setView }) => {
   useEffect(() => {
     // Height update logic
     const updateDimensions = () => {
-      if (contentRef.current) {
+      if (contentRef.current && window.electronAPI) {
         let contentHeight = contentRef.current.scrollHeight
         const contentWidth = contentRef.current.scrollWidth
         if (isTooltipVisible) {
