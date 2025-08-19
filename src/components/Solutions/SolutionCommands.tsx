@@ -162,7 +162,7 @@ const SolutionCommands: React.FC<SolutionCommandsProps> = ({
                           <span className="whitespace-nowrap">Debug</span>
                           <div className="flex gap-1">
                             <span className="bg-white/10 px-1.5 py-0.5 rounded text-[10px] leading-none">
-                              ⌘
+                              ��
                             </span>
                             <span className="bg-white/10 px-1.5 py-0.5 rounded text-[10px] leading-none">
                               ↵
@@ -202,7 +202,7 @@ const SolutionCommands: React.FC<SolutionCommandsProps> = ({
           <button
             className="text-red-500/70 hover:text-red-500/90 transition-colors hover:cursor-pointer"
             title="Sign Out"
-            onClick={() => window.electronAPI.quitApp()}
+            onClick={() => window.electronAPI?.quitApp()}
           >
             <IoLogOutOutline className="w-4 h-4" />
           </button>
