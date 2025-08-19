@@ -31,6 +31,16 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
         if (hasValidProvider) {
           setStep('welcome');
         }
+      } else {
+        // In web environment, check localStorage
+        const webSettings = localStorage.getItem('kanapadadu-settings');
+        if (webSettings) {
+          const settings = JSON.parse(webSettings);
+          const hasValidProvider = Object.values(settings.providers || {}).some(
+            (p: any) => p.enabled && p.apiKey
+          );
+          setHasExistingSettings(hasValidProvider);
+        }
       }
     } catch (error) {
       console.error('Error checking existing settings:', error);
