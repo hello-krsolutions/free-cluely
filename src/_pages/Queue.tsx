@@ -259,12 +259,12 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
               )}
               {chatLoading && (
                 <div className="flex justify-start mb-3">
-                  <div className="bg-white/85 text-gray-600 px-3 py-1.5 rounded-xl text-xs backdrop-blur-sm border border-gray-200/50 shadow-md mr-12">
+                  <div className="bg-gray-700/80 text-gray-200 px-4 py-2 rounded-2xl text-sm shadow-lg mr-12">
                     <span className="inline-flex items-center">
-                      <span className="animate-pulse text-gray-400">●</span>
-                      <span className="animate-pulse animation-delay-200 text-gray-400">●</span>
-                      <span className="animate-pulse animation-delay-400 text-gray-400">●</span>
-                      <span className="ml-2">Gemini is thinking...</span>
+                      <span className="animate-pulse text-blue-400">●</span>
+                      <span className="animate-pulse animation-delay-200 text-blue-400">●</span>
+                      <span className="animate-pulse animation-delay-400 text-blue-400">●</span>
+                      <span className="ml-2">AI is thinking...</span>
                     </span>
                   </div>
                 </div>
