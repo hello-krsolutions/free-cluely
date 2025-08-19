@@ -3,6 +3,8 @@ import Queue from "./_pages/Queue"
 import { ToastViewport } from "@radix-ui/react-toast"
 import { useEffect, useRef, useState } from "react"
 import Solutions from "./_pages/Solutions"
+import Settings from "./_pages/Settings"
+import Auth from "./_pages/Auth"
 import { QueryClient, QueryClientProvider } from "react-query"
 
 declare global {
@@ -49,6 +51,11 @@ declare global {
       moveWindowDown: () => Promise<void>
       quitApp: () => Promise<void>
       invoke: (channel: string, ...args: any[]) => Promise<any>
+
+      // Settings management
+      getSettings: () => Promise<any>
+      saveSettings: (settings: any) => Promise<{ success: boolean }>
+      testAiConnection: (data: { provider: string; apiKey: string; model: string }) => Promise<{ success: boolean; error?: string }>
     }
   }
 }
@@ -63,12 +70,48 @@ const queryClient = new QueryClient({
 })
 
 const App: React.FC = () => {
-  const [view, setView] = useState<"queue" | "solutions" | "debug">("queue")
+  const [view, setView] = useState<"queue" | "solutions" | "debug" | "settings">("queue")
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true)
   const containerRef = useRef<HTMLDivElement>(null)
+
+  // Check authentication status on startup
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        if (window.electronAPI?.getSettings) {
+          const settings = await window.electronAPI.getSettings()
+          const hasValidProvider = Object.values(settings?.providers || {}).some(
+            (p: any) => p?.enabled && p?.apiKey
+          )
+          setIsAuthenticated(hasValidProvider)
+        } else {
+          // Check localStorage in web environment
+          const webSettings = localStorage.getItem('kanapadadu-settings')
+          if (webSettings) {
+            const settings = JSON.parse(webSettings)
+            const hasValidProvider = Object.values(settings?.providers || {}).some(
+              (p: any) => p?.enabled && p?.apiKey
+            )
+            setIsAuthenticated(hasValidProvider)
+          } else {
+            setIsAuthenticated(false)
+          }
+        }
+      } catch (error) {
+        console.error('Error checking auth status:', error)
+        setIsAuthenticated(false)
+      } finally {
+        setIsCheckingAuth(false)
+      }
+    }
+
+    checkAuthStatus()
+  }, [])
 
   // Effect for height monitoring
   useEffect(() => {
-    if (!window.electronAPI) return
+    if (!window.electronAPI || !isAuthenticated) return
 
     const cleanup = window.electronAPI.onResetView(() => {
       console.log("Received 'reset-view' message from main process.")
@@ -82,7 +125,7 @@ const App: React.FC = () => {
     return () => {
       cleanup()
     }
-  }, [])
+  }, [isAuthenticated])
 
   useEffect(() => {
     if (!containerRef.current || !window.electronAPI) return
@@ -123,7 +166,7 @@ const App: React.FC = () => {
   }, [view]) // Re-run when view changes
 
   useEffect(() => {
-    if (!window.electronAPI) return
+    if (!window.electronAPI || !isAuthenticated) return
 
     const cleanupFunctions = [
       window.electronAPI.onSolutionStart(() => {
@@ -157,7 +200,24 @@ const App: React.FC = () => {
       })
     ]
     return () => cleanupFunctions.forEach((cleanup) => cleanup())
-  }, [])
+  }, [isAuthenticated, view])
+
+  // Show loading screen while checking auth
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="w-12 h-12 mx-auto border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+          <p className="text-gray-600">Loading kanapadadu...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Show auth screen if not authenticated
+  if (!isAuthenticated) {
+    return <Auth onComplete={() => setIsAuthenticated(true)} />
+  }
 
   return (
     <div ref={containerRef} className="min-h-0">
@@ -167,6 +227,8 @@ const App: React.FC = () => {
             <Queue setView={setView} />
           ) : view === "solutions" ? (
             <Solutions setView={setView} />
+          ) : view === "settings" ? (
+            <Settings onClose={() => setView("queue")} />
           ) : (
             <></>
           )}
