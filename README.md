@@ -1,87 +1,271 @@
-# Free Cluely
+# Interview Coder
 
-A desktop application to help you cheat on everything. 
+<div align="center">
 
-## 🚀 Quick Start Guide
+![Interview Coder Logo](https://via.placeholder.com/150x150/4F46E5/FFFFFF?text=AI)
+
+**AI-Powered Coding Interview Assistant**
+
+*Your intelligent companion for coding interviews and problem-solving*
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)](https://github.com/ibttf/interview-coder-frontend/releases)
+[![Node.js](https://img.shields.io/badge/Node.js-18%2B-green)](https://nodejs.org/)
+[![Electron](https://img.shields.io/badge/Electron-33%2B-47848F)](https://electronjs.org/)
+
+[Download](#installation) • [Documentation](#documentation) • [Features](#features) • [Development](#development)
+
+</div>
+
+## Overview
+
+Interview Coder is a powerful desktop application designed to assist developers during coding interviews and problem-solving sessions. It combines cutting-edge AI capabilities with an intuitive interface to provide real-time assistance, screenshot analysis, and intelligent conversation.
+
+### 🎯 Key Features
+
+- **🔍 Screenshot Analysis**: Capture and analyze problem statements with AI vision
+- **🤖 Multiple AI Providers**: Support for Gemini, OpenAI, and Claude
+- **🎤 Voice Input**: Record and analyze audio for hands-free interaction
+- **💬 Real-time Chat**: Instant AI assistance with context awareness
+- **⚡ Global Shortcuts**: Quick access with customizable keyboard shortcuts
+- **🔒 Secure Storage**: Encrypted API key management
+- **🌐 Cross-Platform**: Native apps for macOS, Windows, and Linux
+
+## Installation
+
+### Download Pre-built Applications
+
+Visit our [Releases Page](https://github.com/ibttf/interview-coder-frontend/releases) to download the latest version:
+
+- **macOS**: Download `Interview-Coder-{version}.dmg`
+- **Windows**: Download `Interview-Coder-Setup-{version}.exe`
+- **Linux**: Download `Interview-Coder-{version}.AppImage`
+
+### System Requirements
+
+- **macOS**: 10.14 Mojave or later (Intel/Apple Silicon)
+- **Windows**: Windows 10 version 1809 or later (x64/x86)
+- **Linux**: Ubuntu 18.04+ / equivalent (x64)
+- **RAM**: 4GB minimum, 8GB recommended
+- **Storage**: 500MB available space
+
+## Quick Start
+
+### 1. First Launch
+
+When you first open Interview Coder, you'll be greeted with a welcome screen:
+
+1. Click **"Get Started"** to begin setup
+2. Choose your preferred AI provider (Gemini, OpenAI, or Claude)
+3. Enter your API key and validate the connection
+4. Start using the application!
+
+### 2. Getting API Keys
+
+You'll need an API key from at least one AI provider:
+
+- **Google Gemini**: [Get API Key](https://makersuite.google.com/app/apikey) (Recommended for vision/audio features)
+- **OpenAI**: [Get API Key](https://platform.openai.com/api-keys)
+- **Anthropic Claude**: [Get API Key](https://console.anthropic.com/)
+
+### 3. Basic Usage
+
+1. **Take Screenshots**: Press `Cmd+H` (Mac) or `Ctrl+H` (Windows/Linux)
+2. **Chat with AI**: Click the 💬 Chat button for real-time assistance
+3. **Voice Input**: Use the 🎤 Record button for audio analysis
+4. **Settings**: Click ⚙️ Settings to configure providers and preferences
+
+## Features
+
+### 🖼️ Screenshot Analysis
+
+Automatically capture and analyze problem statements, code snippets, or error messages:
+
+- Instant problem extraction and context analysis
+- Support for handwritten and digital text
+- Code syntax recognition and analysis
+- Error message interpretation
+
+### 🤖 Multi-Provider AI Support
+
+Choose from leading AI providers based on your needs:
+
+| Provider | Vision | Audio | Strengths |
+|----------|--------|-------|-----------|
+| **Gemini 2.0** | ✅ | ✅ | Multimodal, fast responses, excellent for coding |
+| **GPT-4o** | ✅ | ❌ | Advanced reasoning, comprehensive knowledge |
+| **Claude 3.5** | ✅ | ❌ | Safety-focused, great for code review |
+
+### ⌨️ Global Shortcuts
+
+Access Interview Coder from anywhere with global shortcuts:
+
+- `Cmd+H` / `Ctrl+H`: Take screenshot
+- `Cmd+B` / `Ctrl+B`: Toggle window visibility
+- `Cmd+Shift+Space` / `Ctrl+Shift+Space`: Show and center window
+- `Cmd+Enter` / `Ctrl+Enter`: Process screenshots/generate solution
+- `Cmd+R` / `Ctrl+R`: Reset session
+
+### 🎤 Voice Features
+
+Hands-free interaction with voice recording:
+
+- Record questions or problems verbally
+- AI transcription and analysis
+- Perfect for complex problem descriptions
+- Supports multiple audio formats
+
+### 💬 Real-time Chat
+
+Intelligent conversation with context awareness:
+
+- Maintains conversation history
+- Screenshot context integration
+- Code explanation and debugging
+- Step-by-step problem solving
+
+## Documentation
+
+### User Guides
+
+- [Getting Started Guide](docs/getting-started.md)
+- [AI Provider Setup](docs/ai-providers.md)
+- [Keyboard Shortcuts](docs/shortcuts.md)
+- [Troubleshooting](docs/troubleshooting.md)
+
+### Development
+
+- [Development Setup](docs/development.md)
+- [Building from Source](BUILD.md)
+- [API Reference](docs/api.md)
+- [Contributing Guidelines](CONTRIBUTING.md)
+
+## Development
 
 ### Prerequisites
-- Make sure you have Node.js installed on your computer
-- Git installed on your computer
-- A Gemini API key (get it from [Google AI Studio](https://makersuite.google.com/app/apikey))
 
-### Installation Steps
+- Node.js 18+ and pnpm
+- Python 3.8+ (for native dependencies)
+- Git
 
-1. Clone the repository:
+### Setup
+
 ```bash
-git clone [repository-url]
-cd free-cluely
+# Clone the repository
+git clone https://github.com/ibttf/interview-coder-frontend.git
+cd interview-coder-frontend
+
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm run dev
+
+# In another terminal, start Electron
+pnpm run app:dev
 ```
 
-2. Install dependencies:
-```bash
-npm install
+### Project Structure
+
+```
+interview-coder/
+├── src/                    # React frontend source
+│   ├── _pages/            # Main application pages
+│   ├── components/        # Reusable UI components
+│   ├── types/            # TypeScript type definitions
+│   └── lib/              # Utility functions
+├── electron/              # Electron main process
+│   ├── main.ts           # Application entry point
+│   ├── AIProviderManager.ts # AI provider abstraction
+│   ├── SettingsManager.ts   # Configuration management
+│   └── helpers/          # Various helper modules
+├── assets/               # Build assets and icons
+└── docs/                # Documentation files
 ```
 
-3. Set up environment variables:
-   - Create a file named `.env` in the root folder
-   - Add your Gemini API key:
-   ```
-   GEMINI_API_KEY=your_api_key_here
-   ```
-   - Save the file
+### Technology Stack
 
-### Running the App
+- **Frontend**: React 18, TypeScript, Tailwind CSS
+- **Backend**: Electron 33, Node.js
+- **AI SDKs**: Google Generative AI, OpenAI, Anthropic
+- **Build**: Vite, electron-builder
+- **UI Components**: Radix UI, Lucide Icons
 
-#### Method 1: Development Mode (Recommended for first run)
-1. Open a terminal and run:
-```bash
-npm run dev -- --port 5180
+## Configuration
+
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+# Development
+NODE_ENV=development
+VITE_DEV_PORT=5173
+
+# Legacy support (migrated to settings UI)
+GEMINI_API_KEY=your_api_key_here
 ```
 
-2. Open another terminal in the same folder and run:
-```bash
-NODE_ENV=development npm run electron:dev
-```
+### Settings Location
 
-#### Method 2: Production Mode
-```bash
-npm run build
-```
-The built app will be in the `release` folder.
+Settings are stored in platform-specific locations:
 
-### ⚠️ Important Notes
+- **macOS**: `~/Library/Application Support/Interview Coder/settings.json`
+- **Windows**: `%APPDATA%/Interview Coder/settings.json`
+- **Linux**: `~/.config/Interview Coder/settings.json`
 
-1. **Closing the App**: 
-   - Press `Cmd + Q` (Mac) or `Ctrl + Q` (Windows/Linux) to quit
-   - Or use Activity Monitor/Task Manager to close `Interview Coder`
-   - The X button currently doesn't work (known issue)
+## Privacy & Security
 
-2. **If the app doesn't start**:
-   - Make sure no other app is using port 5180
-   - Try killing existing processes:
-     ```bash
-     # Find processes using port 5180
-     lsof -i :5180
-     # Kill them (replace [PID] with the process ID)
-     kill [PID]
-     ```
+- **API Keys**: Stored locally and encrypted
+- **Data**: No data sent to external servers except AI providers
+- **Screenshots**: Stored locally and automatically cleaned up
+- **Audio**: Processed locally, only sent to AI providers when needed
 
-3. **Keyboard Shortcuts**:
-   - `Cmd/Ctrl + B`: Toggle window visibility
-   - `Cmd/Ctrl + H`: Take screenshot
-   - 'Cmd/Enter': Get solution
-   - `Cmd/Ctrl + Arrow Keys`: Move window
+## Contributing
 
-### Troubleshooting
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
-If you see errors:
-1. Delete the `node_modules` folder
-2. Delete `package-lock.json`
-3. Run `npm install` again
-4. Try running the app again using Method 1
+### Ways to Contribute
 
-## Contribution
+- 🐛 [Report bugs](https://github.com/ibttf/interview-coder-frontend/issues)
+- 💡 [Suggest features](https://github.com/ibttf/interview-coder-frontend/issues)
+- 🔧 [Submit pull requests](https://github.com/ibttf/interview-coder-frontend/pulls)
+- 📖 [Improve documentation](https://github.com/ibttf/interview-coder-frontend/tree/main/docs)
 
-I'm unable to maintain this repo actively because I do not have the time for it. Please do not create issues, if you have any PRs feel free to create them and i'll review and merge it.
+## License
 
-If you are looking to integrate this for your company, i can work with you to create custom solution. Reach out on [twitter](https://x.com/prathitjoshi_)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+- 📧 **Email**: [support@interviewcoder.com](mailto:support@interviewcoder.com)
+- 💬 **Discord**: [Join our community](https://discord.gg/interview-coder)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/ibttf/interview-coder-frontend/issues)
+- 📚 **Documentation**: [docs.interviewcoder.com](https://docs.interviewcoder.com)
+
+## Roadmap
+
+### Coming Soon
+
+- [ ] **Team Collaboration**: Share sessions with teammates
+- [ ] **Custom Models**: Support for local AI models
+- [ ] **Plugin System**: Extensible architecture for custom features
+- [ ] **Cloud Sync**: Optional cloud backup and sync
+- [ ] **Mobile App**: Companion app for iOS/Android
+
+### Future Features
+
+- [ ] **IDE Integration**: VS Code, IntelliJ, and other IDE plugins
+- [ ] **Video Recording**: Record and analyze coding sessions
+- [ ] **Performance Analytics**: Track improvement over time
+- [ ] **Whiteboard Mode**: Digital whiteboard for system design
+
+---
+
+<div align="center">
+
+**Built with ❤️ for the developer community**
+
+[⭐ Star us on GitHub](https://github.com/ibttf/interview-coder-frontend) • [🚀 Download Now](#installation) • [📖 Read the Docs](#documentation)
+
+</div>
