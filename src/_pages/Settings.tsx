@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Settings as SettingsIcon, Eye, EyeOff, Check, X } from 'lucide-react';
 import { Card } from '../components/ui/card';
-import { Settings, AIProvider, PROVIDER_MODELS, DEFAULT_SETTINGS } from '../types/settings';
+import { type Settings, AIProvider, PROVIDER_MODELS, DEFAULT_SETTINGS } from '../types/settings';
 
 interface SettingsProps {
   onClose?: () => void;
