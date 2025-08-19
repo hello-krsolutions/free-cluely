@@ -58,8 +58,8 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
   const validateApiKeyWeb = async (provider: string, apiKey: string): Promise<{ success: boolean; error?: string }> => {
     try {
       if (provider === 'gemini') {
-        // Test Gemini API directly
-        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + apiKey, {
+        // Test Gemini API directly using the correct model name
+        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -71,6 +71,7 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
           return { success: true };
         } else {
           const error = await response.text();
+          console.error('[Auth] Gemini API error:', error);
           return { success: false, error: 'Invalid API key or quota exceeded' };
         }
       } else if (provider === 'openai') {
