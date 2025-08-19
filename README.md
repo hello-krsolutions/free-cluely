@@ -189,7 +189,7 @@ For detailed build instructions, see [BUILD.md](BUILD.md).
 ### Project Structure
 
 ```
-kanapadadu/
+free-cluely/
 ├── src/                    # React frontend source
 │   ├── _pages/            # Main application pages
 │   ├── components/        # Reusable UI components
@@ -290,7 +290,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**Built with ❤��� for the developer community**
+**Built with ❤️ for the developer community**
 
 [⭐ Star us on GitHub](https://github.com/hello-krsolutions/free-cluely) • [🚀 Download Now](#installation) • [📖 Read the Docs](#documentation)
 
