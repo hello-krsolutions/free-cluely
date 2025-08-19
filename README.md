@@ -19,7 +19,7 @@
 
 ## Overview
 
-Interview Coder is a powerful desktop application designed to assist developers during coding interviews and problem-solving sessions. It combines cutting-edge AI capabilities with an intuitive interface to provide real-time assistance, screenshot analysis, and intelligent conversation.
+kanapadadu is a powerful desktop application designed to assist developers during coding interviews and problem-solving sessions. It combines cutting-edge AI capabilities with an intuitive interface to provide real-time assistance, screenshot analysis, and intelligent conversation.
 
 ### 🎯 Key Features
 
@@ -170,7 +170,7 @@ pnpm run app:dev
 ```
 interview-coder/
 ├── src/                    # React frontend source
-│   ├─�� _pages/            # Main application pages
+│   ├── _pages/            # Main application pages
 │   ├── components/        # Reusable UI components
 │   ├── types/            # TypeScript type definitions
 │   └── lib/              # Utility functions
