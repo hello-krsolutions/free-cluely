@@ -291,7 +291,7 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
               
               {validationResult === false && (
                 <p className="text-sm text-red-600 mt-1">
-                  Invalid API key. Please check and try again.
+                  {validationError || 'Invalid API key. Please check and try again.'}
                 </p>
               )}
               
