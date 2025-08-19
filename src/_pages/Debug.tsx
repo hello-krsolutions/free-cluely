@@ -228,6 +228,11 @@ const Debug: React.FC<DebugProps> = ({ isProcessing, setIsProcessing }) => {
   const { data: extraScreenshots = [], refetch } = useQuery({
     queryKey: ["extras"],
     queryFn: async () => {
+      if (!window.electronAPI) {
+        console.warn("ElectronAPI not available, returning empty screenshots array")
+        return []
+      }
+
       try {
         const existing = await window.electronAPI.getScreenshots()
         return existing
@@ -250,6 +255,11 @@ const Debug: React.FC<DebugProps> = ({ isProcessing, setIsProcessing }) => {
   }
 
   const handleDeleteExtraScreenshot = async (index: number) => {
+    if (!window.electronAPI) {
+      console.warn("ElectronAPI not available")
+      return
+    }
+
     const screenshotToDelete = extraScreenshots[index]
 
     try {
@@ -288,29 +298,33 @@ const Debug: React.FC<DebugProps> = ({ isProcessing, setIsProcessing }) => {
     }
 
     // Set up event listeners
-    const cleanupFunctions = [
-      window.electronAPI.onScreenshotTaken(() => refetch()),
-      window.electronAPI.onResetView(() => refetch()),
-      window.electronAPI.onDebugSuccess(() => {
-        setIsProcessing(false) //all the other stuff ahapepns in the parent component, so we just need to do this.
-      }),
-      window.electronAPI.onDebugStart(() => {
-        setIsProcessing(true)
-      }),
-      window.electronAPI.onDebugError((error: string) => {
-        showToast(
-          "Processing Failed",
-          "There was an error debugging your code.",
-          "error"
-        )
-        setIsProcessing(false)
-        console.error("Processing error:", error)
-      })
-    ]
+    const cleanupFunctions: (() => void)[] = []
+
+    if (window.electronAPI) {
+      cleanupFunctions.push(
+        window.electronAPI.onScreenshotTaken(() => refetch()),
+        window.electronAPI.onResetView(() => refetch()),
+        window.electronAPI.onDebugSuccess(() => {
+          setIsProcessing(false) //all the other stuff ahapepns in the parent component, so we just need to do this.
+        }),
+        window.electronAPI.onDebugStart(() => {
+          setIsProcessing(true)
+        }),
+        window.electronAPI.onDebugError((error: string) => {
+          showToast(
+            "Processing Failed",
+            "There was an error debugging your code.",
+            "error"
+          )
+          setIsProcessing(false)
+          console.error("Processing error:", error)
+        })
+      )
+    }
 
     // Set up resize observer
     const updateDimensions = () => {
-      if (contentRef.current) {
+      if (contentRef.current && window.electronAPI) {
         let contentHeight = contentRef.current.scrollHeight
         const contentWidth = contentRef.current.scrollWidth
         if (isTooltipVisible) {
