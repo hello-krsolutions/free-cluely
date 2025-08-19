@@ -83,9 +83,9 @@ pnpm run app:build -- --linux tar.gz
 ```
 
 Output files:
-- `release/Interview Coder-{version}.AppImage` - Universal Linux package
-- `release/interview-coder_{version}_amd64.deb` - Debian/Ubuntu package
-- `release/interview-coder-{version}.tar.gz` - Compressed archive
+- `release/kanapadadu-{version}.AppImage` - Universal Linux package
+- `release/kanapadadu_{version}_amd64.deb` - Debian/Ubuntu package
+- `release/kanapadadu-{version}.tar.gz` - Compressed archive
 
 ## Development Builds
 
