@@ -225,6 +225,7 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
               screenshots={screenshots}
               onTooltipVisibilityChange={handleTooltipVisibilityChange}
               onChatToggle={handleChatToggle}
+              onSettingsClick={() => setView("settings")}
             />
           </div>
           {/* Conditional Chat Interface */}
