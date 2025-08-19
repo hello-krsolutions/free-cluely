@@ -130,6 +130,17 @@ const QueueCommands: React.FC<QueueCommandsProps> = ({
           </button>
         </div>
 
+        {/* Settings Button */}
+        <div className="flex items-center gap-2">
+          <button
+            className="bg-white/10 hover:bg-white/20 transition-colors rounded-md px-2 py-1 text-[11px] leading-none text-white/70 flex items-center gap-1"
+            onClick={onSettingsClick}
+            type="button"
+          >
+            ⚙️ Settings
+          </button>
+        </div>
+
         {/* Chat Button */}
         <div className="flex items-center gap-2">
           <button
