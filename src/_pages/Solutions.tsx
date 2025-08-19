@@ -163,6 +163,11 @@ const Solutions: React.FC<SolutionsProps> = ({ setView }) => {
   const { data: extraScreenshots = [], refetch } = useQuery<Array<{ path: string; preview: string }>, Error>(
     ["extras"],
     async () => {
+      if (!window.electronAPI) {
+        console.warn("ElectronAPI not available, returning empty screenshots array")
+        return []
+      }
+
       try {
         const existing = await window.electronAPI.getScreenshots()
         return existing
