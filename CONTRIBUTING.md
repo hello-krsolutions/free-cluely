@@ -1,6 +1,6 @@
-# Contributing to Interview Coder
+# Contributing to kanapadadu
 
-First off, thank you for considering contributing to Interview Coder! It's people like you that make Interview Coder such a great tool for the developer community.
+First off, thank you for considering contributing to kanapadadu! It's people like you that make kanapadadu such a great tool for the developer community.
 
 ## Table of Contents
 
