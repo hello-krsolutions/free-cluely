@@ -185,6 +185,23 @@ const App: React.FC = () => {
     return () => cleanupFunctions.forEach((cleanup) => cleanup())
   }, [])
 
+  // Show loading screen while checking auth
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="w-12 h-12 mx-auto border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+          <p className="text-gray-600">Loading Interview Coder...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Show auth screen if not authenticated
+  if (!isAuthenticated) {
+    return <Auth onComplete={() => setIsAuthenticated(true)} />
+  }
+
   return (
     <div ref={containerRef} className="min-h-0">
       <QueryClientProvider client={queryClient}>
