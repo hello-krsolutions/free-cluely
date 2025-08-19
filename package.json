@@ -14,8 +14,8 @@
   },
   "build": {
     "appId": "com.interviewcoder.app",
-    "productName": "Interview Coder",
-    "copyright": "Copyright © 2024 Interview Coder",
+    "productName": "kanapadadu",
+    "copyright": "Copyright © 2024 kanapadadu",
     "files": [
       "dist/**/*",
       "dist-electron/**/*",
