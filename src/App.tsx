@@ -66,6 +66,8 @@ const queryClient = new QueryClient({
 
 const App: React.FC = () => {
   const [view, setView] = useState<"queue" | "solutions" | "debug" | "settings">("queue")
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true)
   const containerRef = useRef<HTMLDivElement>(null)
 
   // Effect for height monitoring
