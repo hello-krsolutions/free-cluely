@@ -103,7 +103,7 @@ The first stable release of kanapadadu brings AI-powered assistance to coding in
 
 ### From v1.0.x to v1.1.x
 
-1. Download the latest version from the [releases page](https://github.com/ibttf/interview-coder-frontend/releases)
+1. Download the latest version from the [releases page](https://github.com/hello-krsolutions/free-cluely/releases)
 2. Close the existing application
 3. Install the new version (overwrites the previous installation)
 4. Launch the application - your settings will be automatically migrated
