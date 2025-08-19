@@ -307,8 +307,7 @@ async function validateApiKey(provider: string, apiKey: string): Promise<boolean
 ### Staying Updated
 
 - Watch the repository for notifications
-- Follow our [blog](https://blog.interviewcoder.com) for updates
-- Join our [newsletter](https://newsletter.interviewcoder.com)
+- Follow KRMR Solutions for updates
 
 ## Recognition
 
