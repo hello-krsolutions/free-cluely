@@ -98,7 +98,7 @@ Choose from leading AI providers based on your needs:
 
 ### ⌨️ Global Shortcuts
 
-Access Interview Coder from anywhere with global shortcuts:
+Access kanapadadu from anywhere with global shortcuts:
 
 - `Cmd+H` / `Ctrl+H`: Take screenshot
 - `Cmd+B` / `Ctrl+B`: Toggle window visibility
@@ -174,7 +174,7 @@ interview-coder/
 │   ├── components/        # Reusable UI components
 │   ├── types/            # TypeScript type definitions
 │   └── lib/              # Utility functions
-├── electron/              # Electron main process
+├���─ electron/              # Electron main process
 │   ├── main.ts           # Application entry point
 │   ├── AIProviderManager.ts # AI provider abstraction
 │   ├── SettingsManager.ts   # Configuration management
