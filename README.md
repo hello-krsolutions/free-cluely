@@ -227,10 +227,10 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 
 ### Ways to Contribute
 
-- 🐛 [Report bugs](https://github.com/ibttf/interview-coder-frontend/issues)
-- 💡 [Suggest features](https://github.com/ibttf/interview-coder-frontend/issues)
-- 🔧 [Submit pull requests](https://github.com/ibttf/interview-coder-frontend/pulls)
-- 📖 [Improve documentation](https://github.com/ibttf/interview-coder-frontend/tree/main/docs)
+- 🐛 [Report bugs](https://github.com/hello-krsolutions/free-cluely/issues)
+- 💡 [Suggest features](https://github.com/hello-krsolutions/free-cluely/issues)
+- 🔧 [Submit pull requests](https://github.com/hello-krsolutions/free-cluely/pulls)
+- 📖 [Improve documentation](https://github.com/hello-krsolutions/free-cluely/tree/main/docs)
 
 ## License
 
