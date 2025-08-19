@@ -48,8 +48,8 @@ pnpm run app:build -- --mac --universal
 ```
 
 Output files:
-- `release/Interview Coder-{version}.dmg` - Installer package
-- `release/Interview Coder-{version}-mac.zip` - Portable application
+- `release/kanapadadu-{version}.dmg` - Installer package
+- `release/kanapadadu-{version}-mac.zip` - Portable application
 
 ### Windows
 
