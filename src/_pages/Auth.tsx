@@ -51,6 +51,7 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
     console.log(`[Auth] Starting validation for ${provider} with key: ${apiKey.substring(0, 10)}...`);
     setIsValidating(true);
     setValidationResult(null);
+    setValidationError('');
 
     try {
       if (!window.electronAPI?.invoke) {
