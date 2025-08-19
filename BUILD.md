@@ -1,6 +1,6 @@
-# Build Instructions for Interview Coder
+# Build Instructions for kanapadadu
 
-This guide covers how to build Interview Coder for macOS, Windows, and Linux distributions.
+This guide covers how to build kanapadadu for macOS, Windows, and Linux distributions.
 
 ## Prerequisites
 
