@@ -63,7 +63,7 @@ const queryClient = new QueryClient({
 })
 
 const App: React.FC = () => {
-  const [view, setView] = useState<"queue" | "solutions" | "debug">("queue")
+  const [view, setView] = useState<"queue" | "solutions" | "debug" | "settings">("queue")
   const containerRef = useRef<HTMLDivElement>(null)
 
   // Effect for height monitoring
