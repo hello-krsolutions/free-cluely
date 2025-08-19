@@ -65,8 +65,8 @@ pnpm run app:build -- --win --ia32
 ```
 
 Output files:
-- `release/Interview Coder Setup {version}.exe` - NSIS installer
-- `release/Interview Coder {version}.exe` - Portable executable
+- `release/kanapadadu Setup {version}.exe` - NSIS installer
+- `release/kanapadadu {version}.exe` - Portable executable
 
 ### Linux
 
