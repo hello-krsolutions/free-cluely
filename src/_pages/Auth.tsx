@@ -13,6 +13,7 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
   const [showKey, setShowKey] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
   const [validationResult, setValidationResult] = useState<boolean | null>(null);
+  const [validationError, setValidationError] = useState<string>('');
   const [hasExistingSettings, setHasExistingSettings] = useState(false);
 
   useEffect(() => {
