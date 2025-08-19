@@ -38,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2024-01-15
 
 ### Added
-- Initial release of Interview Coder
+- Initial release of kanapadadu
 - Basic screenshot capture and analysis
 - Gemini AI integration
 - Electron-based desktop application
