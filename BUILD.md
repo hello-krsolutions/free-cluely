@@ -15,8 +15,8 @@ This guide covers how to build kanapadadu for macOS, Windows, and Linux distribu
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/ibttf/interview-coder-frontend.git
-cd interview-coder-frontend
+git clone https://github.com/hello-krsolutions/free-cluely.git
+cd free-cluely
 ```
 
 2. Install dependencies:
