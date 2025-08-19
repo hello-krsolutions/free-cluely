@@ -22,8 +22,8 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
 
   const checkExistingSettings = async () => {
     try {
-      if (window.electronAPI?.invoke) {
-        const settings = await window.electronAPI.invoke('get-settings');
+      if (window.electronAPI?.getSettings) {
+        const settings = await window.electronAPI.getSettings();
         const hasValidProvider = Object.values(settings.providers || {}).some(
           (p: any) => p.enabled && p.apiKey
         );
@@ -309,7 +309,7 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
 
               {/* Debug Info */}
               <div className="text-xs text-gray-400 mt-2 p-2 bg-gray-50 rounded">
-                <div>ElectronAPI: {window.electronAPI ? '✅ Available' : '��� Not Available'}</div>
+                <div>ElectronAPI: {window.electronAPI ? '✅ Available' : '❌ Not Available'}</div>
                 <div>Provider: {provider}</div>
                 <div>Model: {getDefaultModel(provider)}</div>
                 {validationError && <div className="text-red-500">Error: {validationError}</div>}
