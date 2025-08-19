@@ -168,6 +168,8 @@ const App: React.FC = () => {
             <Queue setView={setView} />
           ) : view === "solutions" ? (
             <Solutions setView={setView} />
+          ) : view === "settings" ? (
+            <Settings onClose={() => setView("queue")} />
           ) : (
             <></>
           )}
