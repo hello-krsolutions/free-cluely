@@ -1,8 +1,8 @@
-# Interview Coder
+# kanapadadu
 
 <div align="center">
 
-![Interview Coder Logo](https://via.placeholder.com/150x150/4F46E5/FFFFFF?text=AI)
+![kanapadadu Logo](https://via.placeholder.com/150x150/4F46E5/FFFFFF?text=AI)
 
 **AI-Powered Coding Interview Assistant**
 
@@ -170,7 +170,7 @@ pnpm run app:dev
 ```
 interview-coder/
 ├── src/                    # React frontend source
-│   ├── _pages/            # Main application pages
+│   ├─�� _pages/            # Main application pages
 │   ├── components/        # Reusable UI components
 │   ├── types/            # TypeScript type definitions
 │   └── lib/              # Utility functions
