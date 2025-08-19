@@ -89,7 +89,7 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
           model: getDefaultModel(provider)
         };
 
-        const saveResult = await window.electronAPI.invoke('save-settings', settings);
+        const saveResult = await window.electronAPI.saveSettings(settings);
         console.log('[Auth] Settings saved:', saveResult);
 
         // Complete setup after a brief delay
