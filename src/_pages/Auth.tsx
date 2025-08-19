@@ -268,6 +268,7 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
                   onChange={(e) => {
                     setApiKey(e.target.value);
                     setValidationResult(null);
+                    setValidationError('');
                   }}
                   placeholder={providerInfo.placeholder}
                   className="w-full px-3 py-2 pr-20 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
