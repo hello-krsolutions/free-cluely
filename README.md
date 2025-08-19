@@ -9,7 +9,7 @@
 *Your intelligent companion for coding interviews and problem-solving*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)](https://github.com/ibttf/interview-coder-frontend/releases)
+[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)](https://github.com/hello-krsolutions/free-cluely/releases)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-green)](https://nodejs.org/)
 [![Electron](https://img.shields.io/badge/Electron-33%2B-47848F)](https://electronjs.org/)
 
