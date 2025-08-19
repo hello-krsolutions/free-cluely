@@ -98,10 +98,14 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
           onComplete();
         }, 1000);
       } else {
-        console.log('[Auth] Validation failed:', result.error || 'Unknown error');
+        const errorMsg = result.error || 'Invalid API key or network error';
+        console.log('[Auth] Validation failed:', errorMsg);
+        setValidationError(errorMsg);
       }
     } catch (error) {
       console.error('[Auth] API key validation failed:', error);
+      const errorMsg = error instanceof Error ? error.message : 'Connection failed';
+      setValidationError(errorMsg);
       setValidationResult(false);
     } finally {
       setIsValidating(false);
