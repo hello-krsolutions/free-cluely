@@ -168,7 +168,7 @@ pnpm run app:dev
 ### Project Structure
 
 ```
-interview-coder/
+kanapadadu/
 ├── src/                    # React frontend source
 │   ├── _pages/            # Main application pages
 │   ├── components/        # Reusable UI components
