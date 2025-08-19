@@ -25,7 +25,7 @@ We pledge to make participation in our project a harassment-free experience for 
 
 ### Ways to Contribute
 
-There are many ways to contribute to Interview Coder:
+There are many ways to contribute to kanapadadu:
 
 - 🐛 **Bug Reports**: Help us identify and fix issues
 - 💡 **Feature Requests**: Suggest new features or improvements
