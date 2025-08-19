@@ -23,7 +23,7 @@ kanapadadu is a powerful desktop application designed to assist developers durin
 
 ### 🎯 Key Features
 
-- **🔍 Screenshot Analysis**: Capture and analyze problem statements with AI vision
+- **��� Screenshot Analysis**: Capture and analyze problem statements with AI vision
 - **🤖 Multiple AI Providers**: Support for Gemini, OpenAI, and Claude
 - **🎤 Voice Input**: Record and analyze audio for hands-free interaction
 - **💬 Real-time Chat**: Instant AI assistance with context awareness
@@ -238,10 +238,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- 📧 **Email**: [support@interviewcoder.com](mailto:support@interviewcoder.com)
-- 💬 **Discord**: [Join our community](https://discord.gg/interview-coder)
-- 🐛 **Issues**: [GitHub Issues](https://github.com/ibttf/interview-coder-frontend/issues)
-- 📚 **Documentation**: [docs.interviewcoder.com](https://docs.interviewcoder.com)
+**KRMR Solutions Private Limited**
+
+📍 **Address**: #501, Rebello Enclave, Subash Nagar, MIDC, Andheri E, Mumbai 400093, IN
+📞 **Phone**: +91 96992 21355
+📧 **Email**: [hello@krmrsolutions.com](mailto:hello@krmrsolutions.com)
+
+**Development Support:**
+- 🐛 **Issues**: [GitHub Issues](https://github.com/hello-krsolutions/free-cluely/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/hello-krsolutions/free-cluely/discussions)
 
 ## Roadmap
 
