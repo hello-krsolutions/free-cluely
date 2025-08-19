@@ -174,7 +174,7 @@ interview-coder/
 │   ├── components/        # Reusable UI components
 │   ├── types/            # TypeScript type definitions
 │   └── lib/              # Utility functions
-├���─ electron/              # Electron main process
+├── electron/              # Electron main process
 │   ├── main.ts           # Application entry point
 │   ├── AIProviderManager.ts # AI provider abstraction
 │   ├── SettingsManager.ts   # Configuration management
@@ -210,9 +210,9 @@ GEMINI_API_KEY=your_api_key_here
 
 Settings are stored in platform-specific locations:
 
-- **macOS**: `~/Library/Application Support/Interview Coder/settings.json`
-- **Windows**: `%APPDATA%/Interview Coder/settings.json`
-- **Linux**: `~/.config/Interview Coder/settings.json`
+- **macOS**: `~/Library/Application Support/kanapadadu/settings.json`
+- **Windows**: `%APPDATA%/kanapadadu/settings.json`
+- **Linux**: `~/.config/kanapadadu/settings.json`
 
 ## Privacy & Security
 
