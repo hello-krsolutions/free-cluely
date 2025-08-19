@@ -58,22 +58,25 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
   const validateApiKeyWeb = async (provider: string, apiKey: string): Promise<{ success: boolean; error?: string }> => {
     try {
       if (provider === 'gemini') {
-        // Test Gemini API directly using the correct model name
-        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: 'Hello' }] }]
-          })
-        });
+        // First, try to list models to validate the API key
+        console.log('[Auth] Testing Gemini API key...');
+        const listResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/models?key=' + apiKey);
 
-        if (response.ok) {
-          return { success: true };
-        } else {
-          const error = await response.text();
-          console.error('[Auth] Gemini API error:', error);
-          return { success: false, error: 'Invalid API key or quota exceeded' };
+        if (!listResponse.ok) {
+          const error = await listResponse.text();
+          console.error('[Auth] Gemini API key validation failed:', error);
+          if (listResponse.status === 400) {
+            return { success: false, error: 'Invalid API key format' };
+          } else if (listResponse.status === 403) {
+            return { success: false, error: 'API key denied or quota exceeded' };
+          } else {
+            return { success: false, error: 'API key validation failed' };
+          }
         }
+
+        // If listing models works, the API key is valid
+        console.log('[Auth] Gemini API key validated successfully');
+        return { success: true };
       } else if (provider === 'openai') {
         // Test OpenAI API
         const response = await fetch('https://api.openai.com/v1/models', {
@@ -110,6 +113,7 @@ const Auth: React.FC<AuthProps> = ({ onComplete }) => {
 
       return { success: false, error: 'Unknown provider' };
     } catch (error) {
+      console.error('[Auth] API validation error:', error);
       return { success: false, error: 'Network error or CORS issue' };
     }
   };
