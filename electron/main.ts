@@ -200,7 +200,7 @@ export class AppState {
     
     const contextMenu = Menu.buildFromTemplate([
       {
-        label: 'Show Interview Coder',
+        label: 'Show kanapadadu',
         click: () => {
           this.centerAndShowWindow()
         }
