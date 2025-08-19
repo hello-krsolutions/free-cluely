@@ -51,8 +51,8 @@ const Settings: React.FC<SettingsProps> = ({ onClose }) => {
 
   const loadSettings = async () => {
     try {
-      if (window.electronAPI?.invoke) {
-        const savedSettings = await window.electronAPI.invoke('get-settings');
+      if (window.electronAPI?.getSettings) {
+        const savedSettings = await window.electronAPI.getSettings();
         if (savedSettings) {
           setSettings({ ...DEFAULT_SETTINGS, ...savedSettings });
         }
