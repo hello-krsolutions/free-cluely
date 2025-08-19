@@ -137,4 +137,34 @@ export function initializeIpcHandlers(appState: AppState): void {
   ipcMain.handle("center-and-show-window", async () => {
     appState.centerAndShowWindow()
   })
+
+  // Settings management handlers
+  ipcMain.handle("get-settings", async () => {
+    try {
+      return appState.processingHelper.getLLMHelper().getSettings()
+    } catch (error: any) {
+      console.error("Error getting settings:", error)
+      throw error
+    }
+  })
+
+  ipcMain.handle("save-settings", async (event, settings) => {
+    try {
+      await appState.processingHelper.getLLMHelper().updateSettings(settings)
+      return { success: true }
+    } catch (error: any) {
+      console.error("Error saving settings:", error)
+      throw error
+    }
+  })
+
+  ipcMain.handle("test-ai-connection", async (event, { provider, apiKey, model }) => {
+    try {
+      const result = await appState.processingHelper.getLLMHelper().testConnection(provider, apiKey, model)
+      return result
+    } catch (error: any) {
+      console.error("Error testing AI connection:", error)
+      return { success: false, error: error.message }
+    }
+  })
 }
