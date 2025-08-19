@@ -51,6 +51,11 @@ declare global {
       moveWindowDown: () => Promise<void>
       quitApp: () => Promise<void>
       invoke: (channel: string, ...args: any[]) => Promise<any>
+
+      // Settings management
+      getSettings: () => Promise<any>
+      saveSettings: (settings: any) => Promise<{ success: boolean }>
+      testAiConnection: (data: { provider: string; apiKey: string; model: string }) => Promise<{ success: boolean; error?: string }>
     }
   }
 }
