@@ -70,9 +70,31 @@ const App: React.FC = () => {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true)
   const containerRef = useRef<HTMLDivElement>(null)
 
+  // Check authentication status on startup
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        if (window.electronAPI?.invoke) {
+          const settings = await window.electronAPI.invoke('get-settings')
+          const hasValidProvider = Object.values(settings?.providers || {}).some(
+            (p: any) => p?.enabled && p?.apiKey
+          )
+          setIsAuthenticated(hasValidProvider)
+        }
+      } catch (error) {
+        console.error('Error checking auth status:', error)
+        setIsAuthenticated(false)
+      } finally {
+        setIsCheckingAuth(false)
+      }
+    }
+
+    checkAuthStatus()
+  }, [])
+
   // Effect for height monitoring
   useEffect(() => {
-    if (!window.electronAPI) return
+    if (!window.electronAPI || !isAuthenticated) return
 
     const cleanup = window.electronAPI.onResetView(() => {
       console.log("Received 'reset-view' message from main process.")
@@ -86,7 +108,7 @@ const App: React.FC = () => {
     return () => {
       cleanup()
     }
-  }, [])
+  }, [isAuthenticated])
 
   useEffect(() => {
     if (!containerRef.current || !window.electronAPI) return
