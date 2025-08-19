@@ -221,7 +221,7 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
             <ToastDescription>{toastMessage.description}</ToastDescription>
           </Toast>
           <div className="w-fit">
-            <QueueCommands
+            <ModernCommandBar
               screenshots={screenshots}
               onTooltipVisibilityChange={handleTooltipVisibilityChange}
               onChatToggle={handleChatToggle}
@@ -261,7 +261,7 @@ const Queue: React.FC<QueueProps> = ({ setView }) => {
                 <div className="flex justify-start mb-3">
                   <div className="bg-white/85 text-gray-600 px-3 py-1.5 rounded-xl text-xs backdrop-blur-sm border border-gray-200/50 shadow-md mr-12">
                     <span className="inline-flex items-center">
-                      <span className="animate-pulse text-gray-400">●</span>
+                      <span className="animate-pulse text-gray-400">��</span>
                       <span className="animate-pulse animation-delay-200 text-gray-400">●</span>
                       <span className="animate-pulse animation-delay-400 text-gray-400">●</span>
                       <span className="ml-2">Gemini is thinking...</span>
