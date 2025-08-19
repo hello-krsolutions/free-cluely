@@ -78,8 +78,9 @@ export class WindowHelper {
       minWidth: 300,
       minHeight: 200,
       webPreferences: {
-        nodeIntegration: true,
+        nodeIntegration: false,
         contextIsolation: true,
+        enableRemoteModule: false,
         preload: path.join(__dirname, "preload.js")
       },
       show: false, // Start hidden, then show after setup
